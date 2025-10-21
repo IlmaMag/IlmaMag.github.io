@@ -71,51 +71,96 @@
       padding: 20px;
       margin-top: 40px;
     }
+    .files-section {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-radius: 8px;
+    }
+    .files-section ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .files-section li {
+      margin: 10px 0;
+    }
+    .files-section a {
+      color: #0066ff;
+      text-decoration: none;
+    }
+    .files-section a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-
   <header>
     <h1>EST334 - Estadística Espacial</h1>
     <p>Universidad Nacional del Altiplano - Puno</p>
   </header>
-
   <div class="info">
     <span>👨‍🏫 Docente: Ing. Fred Torres Cruz</span>
     <span>📅 Semestre: 2025-II</span>
     <span>📖 Créditos: 4</span>
   </div>
-
   <div class="card">
     <h2>Estudiante: ILMA MAGDA MAMANI MAMANI</h2>
     <p>Código: 213838 - Escuela Profesional de Ingeniería Estadística e Informática</p>
   </div>
-
   <div class="card">
     <h2>Descripción del Curso</h2>
     <p>
       El curso de <b>Estadística Espacial (EST334)</b> es una rama de la estadística que analiza datos que están asociados a una ubicación geográfica. Su objetivo principal es entender patrones, relaciones y estructuras que dependen del espacio, es decir, cómo varían los fenómenos según el lugar donde ocurren.
-
     </p>
   </div>
-
   <div class="units">
     <div class="unit">
       <h3>Unidad I</h3>
       <p>Identificar y analizar patrones espaciales en conjuntos de datos georreferenciados.</p>
-      <button class="red">Ingresar</button>
+      <button class="red" onclick="toggleFiles('unidad1')">Ingresar</button>
+      <div id="unidad1" class="files-section">
+        <h4>Archivos de Unidad I</h4>
+        <ul>
+          <!-- Agrega aquí los enlaces a tus archivos. Ejemplos: -->
+          <!-- Sube los archivos a una carpeta 'unidad1' en tu repositorio GitHub -->
+          <li><a href="unidad1/ejemplo.pdf" target="_blank">Ejemplo PDF (se abre en pantalla)</a></li>
+          <li><a href="unidad1/ejemplo.xlsx" download>Ejemplo Excel (descarga)</a></li>
+          <li><a href="unidad1/ejemplo.docx" download>Ejemplo Word (descarga)</a></li>
+          <!-- Para visualizar Excel/Word en pantalla, puedes usar visores externos como Google Docs, pero para simplicidad, usa enlaces directos -->
+        </ul>
+      </div>
     </div>
     <div class="unit">
       <h3>Unidad II</h3>
       <p>Aplicar métodos geoestadísticos para modelar la variabilidad espacial y temporal.</p>
-      <button class="green">Ingresar</button>
+      <button class="green" onclick="toggleFiles('unidad2')">Ingresar</button>
+      <div id="unidad2" class="files-section">
+        <h4>Archivos de Unidad II</h4>
+        <ul>
+          <!-- Agrega aquí los enlaces a tus archivos. Ejemplos: -->
+          <!-- Sube los archivos a una carpeta 'unidad2' en tu repositorio GitHub -->
+          <li><a href="unidad2/ejemplo.pdf" target="_blank">Ejemplo PDF (se abre en pantalla)</a></li>
+          <li><a href="unidad2/ejemplo.xlsx" download>Ejemplo Excel (descarga)</a></li>
+          <li><a href="unidad2/ejemplo.docx" download>Ejemplo Word (descarga)</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-
   <footer>
     📍 Facultad de Ingeniería Estadística e Informática - UNAP <br>
     ✉️ Contacto: 962665653
   </footer>
 
+  <script>
+    function toggleFiles(id) {
+      var section = document.getElementById(id);
+      if (section.style.display === "block") {
+        section.style.display = "none";
+      } else {
+        section.style.display = "block";
+      }
+    }
+  </script>
 </body>
 </html>

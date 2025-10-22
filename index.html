@@ -3,169 +3,545 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EST334 - Estadística Espacial ILMA MAGDA</title>
+  <title>EST334 - Estadística Espacial</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    :root {
+      --primary-red: #e63946;
+      --primary-blue: #0066ff;
+      --primary-green: #2a9d8f;
+      --bg-light: #f8f9fa;
+      --bg-dark: #1a1a2e;
+      --card-light: #ffffff;
+      --card-dark: #16213e;
+      --text-light: #2d3436;
+      --text-dark: #f8f9fa;
+      --border-light: #e9ecef;
+      --border-dark: #2d3436;
+    }
+
+    * {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f7fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      min-height: 100vh;
     }
-    header {
-      background: linear-gradient(90deg, #ff4d4d, #0066ff);
+
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .header-gradient {
+      background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-blue) 100%);
+      padding: 2rem 0;
       color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-    }
-    .info {
-      display: flex;
-      justify-content: space-around;
-      background: #f0f0f0;
-      padding: 10px;
-    }
-    .info span {
-      background: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .card {
-      background: white;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 900px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
     }
-    .card h2 {
-      color: #333;
-    }
-    .units {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
-    .unit {
-      background: #fafafa;
-      padding: 20px;
-      border-radius: 10px;
-      width: 40%;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .unit button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .red { background: #e63946; color: white; }
-    .green { background: #2a9d8f; color: white; }
-    footer {
-      text-align: center;
-      background: #222;
+
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
       color: white;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    .files-section {
-      display: none;
-      margin-top: 20px;
-      padding: 15px;
-      background: #f0f0f0;
-      border-radius: 8px;
-    }
-    .files-section ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    .files-section li {
-      margin: 10px 0;
-    }
-    .files-section a {
-      color: #0066ff;
       text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
-    .files-section a:hover {
-      text-decoration: underline;
+
+    .back-link:hover {
+      background: rgba(255,255,255,0.3);
+      color: white;
+      transform: translateX(-5px);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .info-badges {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .info-badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .card-custom {
+      background: var(--card-light);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .dark-mode .card-custom {
+      background: var(--card-dark);
+      border-color: var(--border-dark);
+    }
+
+    .card-custom h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .unit-card {
+      background: var(--card-light);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .unit-card {
+      background: var(--card-dark);
+    }
+
+    .unit-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .unit-card.red {
+      border-color: var(--primary-red);
+    }
+
+    .unit-card.green {
+      border-color: var(--primary-green);
+    }
+
+    .unit-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .unit-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .unit-icon.red {
+      background: linear-gradient(135deg, var(--primary-red), #ff6b6b);
+    }
+
+    .unit-icon.green {
+      background: linear-gradient(135deg, var(--primary-green), #48cae4);
+    }
+
+    .unit-header h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .unit-header p {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .btn-custom {
+      border-radius: 50px;
+      padding: 0.65rem 1.8rem;
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+    }
+
+    .btn-custom.red {
+      background: linear-gradient(135deg, var(--primary-red), #ff6b6b);
+      color: white;
+    }
+
+    .btn-custom.green {
+      background: linear-gradient(135deg, var(--primary-green), #48cae4);
+      color: white;
+    }
+
+    .btn-custom:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .files-list {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border-light);
+    }
+
+    .dark-mode .files-list {
+      border-top-color: var(--border-dark);
+    }
+
+    .files-list h5 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .file-item {
+      background: var(--bg-light);
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode .file-item {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .file-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .file-icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .file-icon.pdf {
+      background: linear-gradient(135deg, #e63946, #ff6b6b);
+    }
+
+    .file-icon.code {
+      background: linear-gradient(135deg, #0066ff, #4d94ff);
+    }
+
+    .file-item span {
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: var(--card-light);
+      color: var(--text-light);
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+      box-shadow: 0 -4px 6px rgba(0,0,0,0.05);
+    }
+
+    .dark-mode footer {
+      background: var(--card-dark);
+      color: var(--text-dark);
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .collapse-content.show {
+      max-height: 2000px;
+    }
+
+    @media (max-width: 768px) {
+      .header-gradient {
+        padding: 1.5rem 0;
+      }
+
+      .back-link {
+        position: relative;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .theme-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+      }
+      
+      .info-badges {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .unit-card {
+        margin-bottom: 1.5rem;
+      }
+
+      .card-custom h2 {
+        font-size: 1.3rem;
+      }
+    }
+
+    .container {
+      max-width: 1100px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>EST334 - Estadística Espacial</h1>
-    <p>Universidad Nacional del Altiplano - Puno</p>
+  <header class="header-gradient">
+    <a href="https://frdtorres.github.io/FINESI2025-2/est334.html" class="back-link">
+      <i class="fas fa-arrow-left me-2"></i>Repositorio EST334
+    </a>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+    <div class="container">
+      <h1 class="display-5 fw-bold text-center mb-1">EST334 - Estadística Espacial</h1>
+      <p class="text-center mb-0">Universidad Nacional del Altiplano - Puno</p>
+      <div class="info-badges">
+        <span class="info-badge">
+          <i class="fas fa-chalkboard-teacher me-2"></i>Ing. Fred Torres Cruz
+        </span>
+        <span class="info-badge">
+          <i class="fas fa-calendar me-2"></i>Semestre 2025-II
+        </span>
+        <span class="info-badge">
+          <i class="fas fa-book me-2"></i>4 Créditos
+        </span>
+      </div>
+    </div>
   </header>
-  <div class="info">
-    <span>👨‍🏫 Docente: Ing. Fred Torres Cruz</span>
-    <span>📅 Semestre: 2025-II</span>
-    <span>📖 Créditos: 4</span>
-  </div>
-  <div class="card">
-    <h2>Estudiante: ILMA MAGDA MAMANI MAMANI</h2>
-    <p>Código: 213838 - Escuela Profesional de Ingeniería Estadística e Informática</p>
-  </div>
-  <div class="card">
-    <h2>Descripción del Curso</h2>
-    <p>
-      El curso de <b>Estadística Espacial (EST334)</b> es una rama de la estadística que analiza datos que están asociados a una ubicación geográfica. Su objetivo principal es entender patrones, relaciones y estructuras que dependen del espacio, es decir, cómo varían los fenómenos según el lugar donde ocurren.
-    </p>
-  </div>
-  <div class="units">
-    <div class="unit">
-      <h3>Unidad I</h3>
-      <p>Identificar y analizar patrones espaciales en conjuntos de datos georreferenciados.</p>
-      <button class="red" onclick="toggleFiles('unidad1')">Ingresar</button>
-      <div id="unidad1" class="files-section">
-        <h4>Archivos de Unidad I</h4>
-        <ul>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/01_Posicionamiento_de_Información.pdf" target="_blank">Posicionamiento de Informacion (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/02_muestreoBootstrap.pdf" target="_blank">Muestreo Bootstrap (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/03_Gaussian Random Fields.pdf" target="_blank">Gaussian Random Fields(PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/04_Research Statement .pdf" target="_blank">Research Statement (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/05_Repositorio de github.pdf" target="_blank">Repositorio de github (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/06_Aplicación de Autocorrelación Espacial.pdf" target="_blank">Aplicación de Autocorrelación Espacial (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/07_Ejemplificar [1]Matrices de Pesos, [2]Moran, [3]Geary y [4]Hotspots.pdf" target="_blank">Ejemplificar [1]Matrices de Pesos, [2]Moran, [3]Geary y [4]Hotspots (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/08_Articulo_Evaluación Comparativa de Métodos de Indexación Espacial Aplicados a la Caracterización Georreferenciada(ingles) .pdf" target="_blank">Articulo_Evaluación Comparativa de Métodos de Indexación Espacial Aplicados a la Caracterización Georreferenciada(ingles) (PDF)</a></li>
-          <li><a href="https://ilmamag.github.io/1ra-unidad/09_acuse Recibo.pdf" target="_blank">Acuse de Recibo</a></li>
-          <li><a href="https://github.com/IlmaMag/IlmaMag.github.io/blob/main/1ra-unidad/Posicionamiento%20de%20Informaci%C3%B3n.R" target="_blank">Posicionamiento de Información (R Script)</a></li>
 
-          <!-- Si README.md e index.html son archivos adicionales para Unidad 1, agrégalos aquí. De lo contrario, ignóralos ya que podrían ser archivos del repositorio principal. -->
-          <!-- <li><a href="unidad1/README.md" target="_blank">README (Markdown)</a></li> -->
-          <!-- <li><a href="unidad1/index.html" target="_blank">Index (HTML)</a></li> -->
-        </ul>
-      </div>
+  <div class="container my-4">
+    <div class="card-custom">
+      <h2>
+        <i class="fas fa-user-graduate me-2" style="color: var(--primary-blue);"></i>
+        ILMA MAGDA MAMANI MAMANI
+      </h2>
+      <p class="mb-1"><strong>Código:</strong> 213838</p>
+      <p class="text-muted mb-0">Escuela Profesional de Ingeniería Estadística e Informática</p>
     </div>
-    <div class="unit">
-      <h3>Unidad II</h3>
-      <p>Aplicar métodos geoestadísticos para modelar la variabilidad espacial y temporal.</p>
-      <button class="green" onclick="toggleFiles('unidad2')">Ingresar</button>
-      <div id="unidad2" class="files-section">
-        <h4>Archivos de Unidad II</h4>
-        <ul>
-          <!-- Agrega enlaces para Unidad II cuando los tengas. Por ahora, está vacío. -->
-          <li>No hay archivos disponibles aún.</li>
-        </ul>
+
+    <div class="card-custom">
+      <h2>
+        <i class="fas fa-info-circle me-2" style="color: var(--primary-green);"></i>
+        Descripción del Curso
+      </h2>
+      <p class="mb-0">
+        El curso de <strong>Estadística Espacial (EST334)</strong> es una rama de la estadística que analiza datos asociados a una ubicación geográfica. Su objetivo principal es entender patrones, relaciones y estructuras que dependen del espacio, analizando cómo varían los fenómenos según el lugar donde ocurren.
+      </p>
+    </div>
+
+    <h2 class="text-center mb-3">
+      <i class="fas fa-layer-group me-2"></i>
+      Unidades del Curso
+    </h2>
+
+    <div class="row">
+      <div class="col-lg-6 mb-3">
+        <div class="unit-card red">
+          <div class="unit-header">
+            <div class="unit-icon red">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <div>
+              <h3>Unidad I</h3>
+              <p class="text-muted">Análisis de Patrones Espaciales</p>
+            </div>
+          </div>
+          <p class="mb-2">Identificar y analizar patrones espaciales en conjuntos de datos georreferenciados.</p>
+          <button class="btn btn-custom red w-100" onclick="toggleUnit('unit1')">
+            <i class="fas fa-folder-open me-2"></i>Ver Archivos
+          </button>
+          
+          <div id="unit1" class="collapse-content">
+            <div class="files-list">
+              <h5><i class="fas fa-file-alt me-2"></i>Recursos Disponibles</h5>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/01_Posicionamiento_de_Información.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Posicionamiento de Información</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/02_muestreoBootstrap.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Muestreo Bootstrap</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/03_Gaussian Random Fields.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Gaussian Random Fields</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/04_Research Statement .pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Research Statement</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/05_Repositorio de github.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Repositorio de GitHub</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/06_Aplicación de Autocorrelación Espacial.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Aplicación de Autocorrelación Espacial</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/07_Ejemplificar [1]Matrices de Pesos, [2]Moran, [3]Geary y [4]Hotspots.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Matrices de Pesos, Moran, Geary y Hotspots</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/08_Articulo_Evaluación Comparativa de Métodos de Indexación Espacial Aplicados a la Caracterización Georreferenciada(ingles) .pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Artículo: Evaluación Comparativa de Métodos</span>
+              </a>
+              
+              <a href="https://ilmamag.github.io/1ra-unidad/09_acuse Recibo.pdf" target="_blank" class="file-item">
+                <div class="file-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                <span>Acuse de Recibo</span>
+              </a>
+              
+              <a href="https://github.com/IlmaMag/IlmaMag.github.io/blob/main/1ra-unidad/Posicionamiento%20de%20Informaci%C3%B3n.R" target="_blank" class="file-item">
+                <div class="file-icon code"><i class="fas fa-code"></i></div>
+                <span>Posicionamiento de Información (Script R)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-3">
+        <div class="unit-card green">
+          <div class="unit-header">
+            <div class="unit-icon green">
+              <i class="fas fa-chart-area"></i>
+            </div>
+            <div>
+              <h3>Unidad II</h3>
+              <p class="text-muted">Métodos Geoestadísticos</p>
+            </div>
+          </div>
+          <p class="mb-2">Aplicar métodos geoestadísticos para modelar la variabilidad espacial y temporal.</p>
+          <button class="btn btn-custom green w-100" onclick="toggleUnit('unit2')">
+            <i class="fas fa-folder-open me-2"></i>Ver Archivos
+          </button>
+          
+          <div id="unit2" class="collapse-content">
+            <div class="files-list">
+              <h5><i class="fas fa-file-alt me-2"></i>Recursos Disponibles</h5>
+              <div class="alert alert-info mb-0">
+                <i class="fas fa-info-circle me-2"></i>
+                Los archivos de esta unidad estarán disponibles próximamente.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
   <footer>
-    📍 Facultad de Ingeniería Estadística e Informática - UNAP <br>
-    ✉️ Contacto: 962665653
+    <div class="container text-center">
+      <p>
+        <i class="fas fa-university me-2"></i>
+        Facultad de Ingeniería Estadística e Informática - UNAP
+      </p>
+      <p>
+        <i class="fas fa-phone me-2"></i>
+        Contacto: 962665653
+      </p>
+    </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
   <script>
-    function toggleFiles(id) {
-      var section = document.getElementById(id);
-      if (section.style.display === "block") {
-        section.style.display = "none";
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('themeIcon');
+      
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        icon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
       } else {
-        section.style.display = "block";
+        icon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
       }
     }
+
+    function toggleUnit(unitId) {
+      const unit = document.getElementById(unitId);
+      unit.classList.toggle('show');
+    }
+
+    // Cargar tema guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      const icon = document.getElementById('themeIcon');
+      
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        icon.className = 'fas fa-sun';
+      }
+    });
   </script>
 </body>
 </html>
